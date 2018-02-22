@@ -1,14 +1,15 @@
 VERSION="v0.1"
+TAG="grafana/build-container"
 USER_ID=$(shell id -u)
 GROUP_ID=$(shell id -g)
 
 all: build deploy
 
 build:
-	docker build -t "grafana/build-container:${VERSION}" .
+	docker build -t "${TAG}:${VERSION}" .
 
 deploy:
-	docker push "grafana/build-container:${VERSION}"
+	docker push "${TAG}:${VERSION}"
 
 run-with-source:
 	docker run -ti \
@@ -17,5 +18,5 @@ run-with-source:
 		-e "CIRCLE_BUILD_NUM=0" \
 		-w "/go/src/github.com/grafana/grafana" \
 		-u "${USER_ID}:${GROUP_ID}" \
-		grafana/build-container:${VERSION} \
+		${TAG}:${VERSION} \
 		bash

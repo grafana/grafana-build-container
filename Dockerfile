@@ -15,7 +15,8 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
     source /etc/profile.d/rvm.sh && \
     /bin/bash -l -c "rvm requirements" && \
     /bin/bash -l -c "rvm install 2.1.9" && \
-    /bin/bash -l -c "rvm use 2.1.9 --default"
+    /bin/bash -l -c "rvm use 2.1.9 --default" && \
+    /bin/bash -l -c "gem install fpm -v 1.4"
 
 # install nodejs
 RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - && \
