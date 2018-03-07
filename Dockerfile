@@ -5,7 +5,7 @@ RUN yum install -y yum-plugin-ovl initscripts curl tar gcc libc6-dev gcc-c++ ope
     yum install -y wget yum-utils bzip2 bzip2-devel && \
     yum install -y fontconfig freetype freetype-devel fontconfig-devel libstdc++ && \
     yum install -y rpm-build patch readline readline-devel libtool bison lzma && \
-    yum install -y which tar
+    yum install -y which tar expect
 
 # Install RUBY 1.9.3
 # install necessary utilities
@@ -34,6 +34,10 @@ RUN yum groupinstall -y "Development Tools" && \
     cd .. && \
     rm git.tar.gz && \
     rm -rf git-*
+
+# Add to build container
+#  - pip install awscli and python 2.7.3
+#    - sudo apt-get update; sudo apt-get install rpm; sudo apt-get install expect
 
 ENV GOLANG_VERSION 1.9.3
 
