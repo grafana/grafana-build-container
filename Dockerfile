@@ -39,7 +39,7 @@ RUN yum groupinstall -y "Development Tools" && \
 #  - pip install awscli and python 2.7.3
 #    - sudo apt-get update; sudo apt-get install rpm; sudo apt-get install expect
 
-ENV GOLANG_VERSION 1.9.3
+ENV GOLANG_VERSION 1.10
 
 RUN wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
     yum install -y yarn --nogpgcheck && \
