@@ -9,5 +9,5 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: build docker container
-          command: 'docker build -t "grafana/build-container:v0.1" .' # should be just make and needs rights to our docker repo
+          name: build and deploy docker container
+          command: './build.sh'
