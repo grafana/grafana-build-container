@@ -46,6 +46,8 @@ RUN wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo && \
     wget https://storage.googleapis.com/golang/go${GOLANG_VERSION}.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go${GOLANG_VERSION}.linux-amd64.tar.gz
 
+RUN groupadd -r -g 3434 circleci && \
+    useradd -r -u 3434 -g circleci circleci
 
 ENV PATH /usr/local/go/bin:$PATH
 
@@ -53,3 +55,5 @@ RUN mkdir -p /go/src /go/bin && chmod -R 777 /go
 
 ENV GOPATH /go
 ENV PATH /go/bin:$PATH
+
+USER circleci

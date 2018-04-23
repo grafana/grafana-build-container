@@ -22,7 +22,8 @@ IS_RELEASE=$?
 set -e
 
 if [ $IS_RELEASE -eq 0 ]; then
-    _release_tag="$_repo:$CIRCLE_TAG"
+    _version=$(echo "$CIRCLE_TAG" | cut -d v -f 2)
+    _release_tag="$_repo:$_version"
     echo "Pushing $_release_tag to Docker Hub"
     docker tag $_build_tag $_release_tag
     docker push $_release_tag
