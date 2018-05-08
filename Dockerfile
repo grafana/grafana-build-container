@@ -23,6 +23,11 @@ ENV OSX_SDK_URL=https://s3.dockerproject.org/darwin/v2/ \
 # rm/ln are here to change that
 # created deb depends on rubygem-json but json gem is not build
 # so do by hand
+
+
+# might wanna make sure osx cross and the other tarball as well as the packages ends up somewhere other than tmp
+# might also wanna put them as their own layer to not have to unpack them every time?
+
 RUN apt-get update   && \
     apt-get install -y  \
         clang-3.8 patch libxml2-dev \
@@ -112,3 +117,5 @@ RUN apt-get update   && \
     apt-get update && apt-get install --no-install-recommends yarn      && \
     curl -L https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz \
       | tar -xz -C /usr/local
+      
+ADD ./bootstrap.sh /tmp/bootstrap.sh
