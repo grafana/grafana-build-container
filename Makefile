@@ -18,7 +18,18 @@ run:
 		${TAG}:${VERSION} \
 		bash
 
-run-with-local-source:
+run-with-local-source-live:
+	docker run -d \
+		-e "CIRCLE_BRANCH=local" \
+		-e "CIRCLE_BUILD_NUM=0" \
+		-w "/go/src/github.com/grafana/grafana" \
+		--name grafana-build \
+		-v "${GOPATH}/src/github.com/grafana/grafana:/go/src/github.com/grafana/grafana" \
+		${TAG}:${VERSION} \
+		bash -c "/tmp/bootstrap.sh; mkdir /.cache; chown "${USER_ID}:${GROUP_ID}" /.cache; tail -f /dev/null"
+	docker exec -ti --user "${USER_ID}:${GROUP_ID}" grafana-build bash
+
+run-with-local-source-copy:
 	docker run -d \
 		-e "CIRCLE_BRANCH=local" \
 		-e "CIRCLE_BUILD_NUM=0" \
