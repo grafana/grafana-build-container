@@ -14,14 +14,14 @@ deploy:
 run:
 	docker run -ti \
 		-e "CIRCLE_BRANCH=local" \
-		-e "CIRCLE_BUILD_NUM=0" \
+		-e "CIRCLE_BUILD_NUM=472" \
 		${TAG}:${VERSION} \
 		bash
 
 run-with-local-source-live:
 	docker run -d \
 		-e "CIRCLE_BRANCH=local" \
-		-e "CIRCLE_BUILD_NUM=0" \
+		-e "CIRCLE_BUILD_NUM=472" \
 		-w "/go/src/github.com/grafana/grafana" \
 		--name grafana-build \
 		-v "${GOPATH}/src/github.com/grafana/grafana:/go/src/github.com/grafana/grafana" \
@@ -32,7 +32,7 @@ run-with-local-source-live:
 run-with-local-source-copy:
 	docker run -d \
 		-e "CIRCLE_BRANCH=local" \
-		-e "CIRCLE_BUILD_NUM=0" \
+		-e "CIRCLE_BUILD_NUM=472" \
 		-w "/go/src/github.com/grafana/grafana" \
 		--name grafana-build \
 		${TAG}:${VERSION} \
@@ -45,6 +45,9 @@ update-source:
 
 attach:
 	docker exec -ti grafana-build bash
+
+attach-live:
+	docker exec -ti --user "${USER_ID}:${GROUP_ID}" grafana-build bash
 
 stop:
 	docker kill grafana-build
