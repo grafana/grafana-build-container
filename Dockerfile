@@ -105,7 +105,8 @@ RUN apt-get update   && \
         rpm             \
         ruby2.0         \
         xz-utils        \
-        expect          && \
+        expect          \
+        unzip        && \
     rm /usr/bin/ruby  &&  ln -s /usr/bin/ruby2.0 /usr/bin/ruby          && \
     ln -s /usr/bin/clang-3.8 /usr/bin/clang                             && \
     ln -s /usr/bin/clang++-3.8 /usr/bin/clang++                         && \
