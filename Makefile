@@ -1,4 +1,4 @@
-VERSION="crosscompile"
+VERSION="dev"
 TAG="grafana/build-container"
 USER_ID=$(shell id -u)
 GROUP_ID=$(shell id -g)
