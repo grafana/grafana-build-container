@@ -82,7 +82,7 @@ RUN apt-get update   && \
 # base image to crossbuild grafana
 FROM ubuntu:14.04
 
-ENV GOVERSION=1.10 \
+ENV GOVERSION=1.11 \
     PATH=/usr/local/go/bin:$PATH \
     GOPATH=/go \
     NODEVERSION=6.13.0
