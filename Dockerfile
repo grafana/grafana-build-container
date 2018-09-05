@@ -64,20 +64,7 @@ RUN apt-get update   && \
     rm /tmp/x86_64-centos6-linux-gnu/build.log.bz2 && \
     tar cfJ x86_64-centos6-linux-gnu.tar.xz x86_64-centos6-linux-gnu/ && \
     rm -rf /tmp/x86_64-centos6-linux-gnu/ && \
-    rm -rf /tmp/crosstool-ng-${CTNG}    && \
-    apt-get install -y                           \
-        ruby2.0 ruby2.0-dev gcc libc-dev make && \
-    rm /usr/bin/ruby                          && \
-    rm /usr/bin/gem                           && \
-    ln -s /usr/bin/ruby2.0 /usr/bin/ruby      && \
-    ln -s /usr/bin/gem2.0 /usr/bin/gem        && \
-    gem install -N fpm                        && \
-    gem install -N --install-dir /tmp/gems fpm  && \
-    gem install -N --install-dir /tmp/gems json -v 1.8.6 && \
-    mkdir -p /tmp/deb                         && \
-    cd /tmp/deb                               && \
-    find /tmp/gems/cache -name '*.gem'           \
-       | xargs -rn1 fpm -d ruby --prefix $(gem environment gemdir) -s gem -t deb
+    rm -rf /tmp/crosstool-ng-${CTNG}
 
 # base image to crossbuild grafana
 FROM ubuntu:14.04
@@ -89,7 +76,6 @@ ENV GOVERSION=1.11 \
 
 COPY --from=toolchain /tmp/x86_64-centos6-linux-gnu.tar.xz /tmp/
 COPY --from=toolchain /tmp/osxcross.tar.xz /tmp/
-COPY --from=toolchain /tmp/deb/*.deb /tmp/
 
 RUN apt-get update   && \
     apt-get install -y  \
@@ -103,11 +89,9 @@ RUN apt-get update   && \
         git             \
         make            \
         rpm             \
-        ruby2.0         \
         xz-utils        \
         expect          \
         unzip        && \
-    rm /usr/bin/ruby  &&  ln -s /usr/bin/ruby2.0 /usr/bin/ruby          && \
     ln -s /usr/bin/clang-3.8 /usr/bin/clang                             && \
     ln -s /usr/bin/clang++-3.8 /usr/bin/clang++                         && \
     ln -s /usr/bin/llvm-dsymutil-3.8 /usr/bin/dsymutil                  && \
@@ -120,4 +104,10 @@ RUN apt-get update   && \
     curl -L https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz \
       | tar -xz -C /usr/local
       
+RUN apt-get install -y                           \
+        gcc libc-dev make && \
+    curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
+    curl -sSL https://get.rvm.io | bash -s stable && \
+    /bin/bash -l -c "rvm requirements && rvm install 2.2 && gem install -N fpm"
+
 ADD ./bootstrap.sh /tmp/bootstrap.sh
