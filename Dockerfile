@@ -10,11 +10,11 @@ ENV OSX_SDK_URL=https://s3.dockerproject.org/darwin/v2/ \
 # the toolchain produced is not self contained, it needs clang at runtime
 #
 # SECOND PART
-# build gcc (no g++) centos6-x64 toolchain 
+# build gcc (no g++) centos6-x64 toolchain
 # doc: https://crosstool-ng.github.io/docs/
 # apt-get should be all dep to build toolchain
 # sed and 1st echo are for convenience to get the toolchain in /tmp/x86_64-centos6-linux-gnu
-# other echo are to enable build by root (crosstool-NG refuse to do that by default) 
+# other echo are to enable build by root (crosstool-NG refuse to do that by default)
 # the last 2 rm are just to save some time and space writing docker layers
 #
 # THIRD PART
@@ -72,7 +72,7 @@ FROM ubuntu:14.04
 ENV GOVERSION=1.11 \
     PATH=/usr/local/go/bin:$PATH \
     GOPATH=/go \
-    NODEVERSION=6.13.0
+    NODEVERSION=8.12.0
 
 COPY --from=toolchain /tmp/x86_64-centos6-linux-gnu.tar.xz /tmp/
 COPY --from=toolchain /tmp/osxcross.tar.xz /tmp/
@@ -103,7 +103,7 @@ RUN apt-get update   && \
     apt-get update && apt-get install --no-install-recommends yarn      && \
     curl -L https://storage.googleapis.com/golang/go${GOVERSION}.linux-amd64.tar.gz \
       | tar -xz -C /usr/local
-      
+
 RUN apt-get install -y                           \
         gcc libc-dev make && \
     curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
