@@ -1,8 +1,8 @@
 FROM ubuntu:14.04 as toolchain
 
 ENV OSX_SDK_URL=https://s3.dockerproject.org/darwin/v2/ \
-    OSX_SDK=MacOSX10.11.sdk \
-    OSX_MIN=10.6 \
+    OSX_SDK=MacOSX10.10.sdk \
+    OSX_MIN=10.10 \
     CTNG=1.23.0
 
 # FIRST PART
