@@ -72,7 +72,7 @@ FROM ubuntu:14.04
 ENV GOVERSION=1.11.4 \
     PATH=/usr/local/go/bin:$PATH \
     GOPATH=/go \
-    NODEVERSION=8.12.0
+    NODEVERSION=10.14.2
 
 COPY --from=toolchain /tmp/x86_64-centos6-linux-gnu.tar.xz /tmp/
 COPY --from=toolchain /tmp/osxcross.tar.xz /tmp/
@@ -91,6 +91,7 @@ RUN apt-get update   && \
         rpm             \
         xz-utils        \
         expect          \
+        gnupg2          \
         unzip        && \
     ln -s /usr/bin/clang-3.8 /usr/bin/clang                             && \
     ln -s /usr/bin/clang++-3.8 /usr/bin/clang++                         && \
@@ -106,7 +107,7 @@ RUN apt-get update   && \
 
 RUN apt-get install -y                           \
         gcc libc-dev make && \
-    curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
+    gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && \
     curl -sSL https://get.rvm.io | bash -s stable && \
     /bin/bash -l -c "rvm requirements && rvm install 2.2 && gem install -N fpm"
 
