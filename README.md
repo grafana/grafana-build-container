@@ -1,6 +1,8 @@
 # grafana-build-container
 Grafana build container
 
+**Important:** This build has been moved into the main Grafana [repo](https://github.com/grafana/grafana/tree/master/scripts/build/ci-build).
+
 ## Description
 
 This is a container for cross-platform builds of Grafana. You can run it locally using the Makefile.
