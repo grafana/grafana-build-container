@@ -69,10 +69,10 @@ RUN apt-get update   && \
 # base image to crossbuild grafana
 FROM ubuntu:14.04
 
-ENV GOVERSION=1.11.5 \
+ENV GOVERSION=1.13.4 \
     PATH=/usr/local/go/bin:$PATH \
     GOPATH=/go \
-    NODEVERSION=10.14.2
+    NODEVERSION=12.13.0
 
 COPY --from=toolchain /tmp/x86_64-centos6-linux-gnu.tar.xz /tmp/
 COPY --from=toolchain /tmp/osxcross.tar.xz /tmp/
